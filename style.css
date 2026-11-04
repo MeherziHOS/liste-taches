@@ -1,0 +1,42 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 40px 20px;
+  background-color: #f3f4f6;
+  font-family: Arial, sans-serif;
+  color: #1f2937;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 30px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+h1 {
+  text-align: center;
+}
+
+.compteur {
+  text-align: center;
+  color: #6b7280;
+}
+
+.liste-taches {
+  list-style: none;
+  padding: 0;
+}
+
+.tache {
+  padding: 15px;
+  margin-bottom: 10px;
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+}
