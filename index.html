@@ -13,6 +13,22 @@
 
       <p class="compteur" aria-live="polite">Chargement...</p>
 
+      <div class="zone-ajout">
+        <button
+          id="btn-nouvelle-tache"
+          aria-expanded="false"
+          aria-controls="formulaire-ajout"
+        >
+          + Nouvelle tâche
+        </button>
+
+        <div id="formulaire-ajout" class="formulaire-ajout" hidden>
+          <label for="champ-nouvelle-tache">Nouvelle tâche</label>
+          <input type="text" id="champ-nouvelle-tache" autocomplete="off" />
+          <button id="btn-ajouter">Ajouter</button>
+        </div>
+      </div>
+
       <ul class="liste-taches"></ul>
     </main>
   </body>

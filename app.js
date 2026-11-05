@@ -80,3 +80,55 @@ function mettreAJourCompteur() {
 
 // Lancer l'affichage
 afficherTaches();
+
+// Sélectionner les éléments de la zone d'ajout
+const btnNouvelleTache = document.getElementById("btn-nouvelle-tache");
+const formulaireAjout = document.getElementById("formulaire-ajout");
+const champNouvelleTache = document.getElementById("champ-nouvelle-tache");
+const btnAjouter = document.getElementById("btn-ajouter");
+
+// Ajouter une nouvelle tâche
+function ajouterTache() {
+  const texte = champNouvelleTache.value.trim();
+
+  if (texte === "") {
+    return;
+  }
+
+  const maintenant = Date.now();
+
+  const nouvelleTache = {
+    id: maintenant,
+    texte: texte,
+    terminee: false,
+    date: maintenant,
+  };
+
+  taches.push(nouvelleTache);
+  afficherTaches();
+
+  champNouvelleTache.value = "";
+  champNouvelleTache.focus();
+}
+
+// Afficher ou cacher le formulaire
+btnNouvelleTache.addEventListener("click", () => {
+  formulaireAjout.hidden = !formulaireAjout.hidden;
+
+  const ouvert = !formulaireAjout.hidden;
+  btnNouvelleTache.setAttribute("aria-expanded", String(ouvert));
+
+  if (ouvert) {
+    champNouvelleTache.focus();
+  }
+});
+
+// Ajouter au clic
+btnAjouter.addEventListener("click", ajouterTache);
+
+// Ajouter avec la touche Entrée
+champNouvelleTache.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    ajouterTache();
+  }
+});

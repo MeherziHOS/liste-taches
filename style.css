@@ -65,3 +65,37 @@ h1 {
   border-radius: 6px;
   cursor: pointer;
 }
+
+[hidden] {
+  display: none !important;
+}
+
+.zone-ajout {
+  margin: 20px 0;
+}
+
+#btn-nouvelle-tache,
+#btn-ajouter {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  background-color: #2563eb;
+  color: white;
+  cursor: pointer;
+}
+
+.formulaire-ajout {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+#champ-nouvelle-tache {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  flex: 1;
+  min-width: 150px;
+}
