@@ -40,3 +40,7 @@ h1 {
   border: 1px solid #e5e7eb;
   border-radius: 8px;
 }
+.done {
+  text-decoration: line-through;
+  color: #6b7280;
+}
