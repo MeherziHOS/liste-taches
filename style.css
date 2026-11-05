@@ -66,40 +66,6 @@ h1 {
   cursor: pointer;
 }
 
-[hidden] {
-  display: none !important;
-}
-
-.zone-ajout {
-  margin: 20px 0;
-}
-
-#btn-nouvelle-tache,
-#btn-ajouter {
-  padding: 10px 15px;
-  border: none;
-  border-radius: 6px;
-  background-color: #2563eb;
-  color: white;
-  cursor: pointer;
-}
-
-.formulaire-ajout {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px;
-  margin-top: 15px;
-}
-
-#champ-nouvelle-tache {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  flex: 1;
-  min-width: 150px;
-}
-
 .btn-terminer {
   padding: 8px 12px;
   background-color: #16a34a;
@@ -111,4 +77,46 @@ h1 {
 
 .btn-terminer:hover {
   background-color: #15803d;
+}
+
+.form-ajout {
+  margin: 20px 0;
+}
+
+.form-ajout label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.ligne-ajout {
+  display: flex;
+  gap: 10px;
+}
+
+#nouvelle-tache {
+  flex: 1;
+  min-width: 0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.btn-ajouter {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  background-color: #2563eb;
+  color: white;
+  cursor: pointer;
+}
+
+#nouvelle-tache.invalide {
+  border: 2px solid #e74c3c;
+}
+
+.message-erreur {
+  color: #e74c3c;
+  font-size: 0.9rem;
+  margin-top: 8px;
 }

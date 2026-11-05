@@ -96,20 +96,13 @@ function mettreAJourCompteur() {
 // Lancer l'affichage
 afficherTaches();
 
-// Sélectionner les éléments de la zone d'ajout
-const btnNouvelleTache = document.getElementById("btn-nouvelle-tache");
-const formulaireAjout = document.getElementById("formulaire-ajout");
-const champNouvelleTache = document.getElementById("champ-nouvelle-tache");
-const btnAjouter = document.getElementById("btn-ajouter");
+// Sélectionner le formulaire et ses éléments
+const formAjout = document.getElementById("form-ajout");
+const champTache = document.getElementById("nouvelle-tache");
+const erreurTache = document.getElementById("erreur-tache");
 
-// Ajouter une nouvelle tâche
-function ajouterTache() {
-  const texte = champNouvelleTache.value.trim();
-
-  if (texte === "") {
-    return;
-  }
-
+// Ajouter une tâche déjà validée
+function ajouterTache(texte) {
   const maintenant = Date.now();
 
   const nouvelleTache = {
@@ -121,30 +114,51 @@ function ajouterTache() {
 
   taches.push(nouvelleTache);
   afficherTaches();
-
-  champNouvelleTache.value = "";
-  champNouvelleTache.focus();
 }
 
-// Afficher ou cacher le formulaire
-btnNouvelleTache.addEventListener("click", () => {
-  formulaireAjout.hidden = !formulaireAjout.hidden;
+// Afficher une erreur
+function afficherErreur(message) {
+  erreurTache.textContent = message;
+  champTache.classList.add("invalide");
+  champTache.setAttribute("aria-invalid", "true");
+  champTache.focus();
+}
 
-  const ouvert = !formulaireAjout.hidden;
-  btnNouvelleTache.setAttribute("aria-expanded", String(ouvert));
+// Effacer une erreur
+function effacerErreur() {
+  erreurTache.textContent = "";
+  champTache.classList.remove("invalide");
+  champTache.removeAttribute("aria-invalid");
+}
 
-  if (ouvert) {
-    champNouvelleTache.focus();
+// Soumission du formulaire
+formAjout.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const texte = champTache.value.trim();
+
+  if (texte === "") {
+    afficherErreur("Veuillez saisir une tâche.");
+    return;
   }
+
+  if (texte.length < 3) {
+    afficherErreur("La tâche doit contenir au moins 3 caractères.");
+    return;
+  }
+
+  ajouterTache(texte);
+  effacerErreur();
+  champTache.value = "";
+  champTache.focus();
 });
 
-// Ajouter au clic
-btnAjouter.addEventListener("click", ajouterTache);
+// Effacer l'erreur dès que la saisie est corrigée
+champTache.addEventListener("input", () => {
+  const texte = champTache.value.trim();
 
-// Ajouter avec la touche Entrée
-champNouvelleTache.addEventListener("keydown", (event) => {
-  if (event.key === "Enter") {
-    ajouterTache();
+  if (texte.length >= 3) {
+    effacerErreur();
   }
 });
 

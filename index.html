@@ -13,21 +13,24 @@
 
       <p class="compteur" aria-live="polite">Chargement...</p>
 
-      <div class="zone-ajout">
-        <button
-          id="btn-nouvelle-tache"
-          aria-expanded="false"
-          aria-controls="formulaire-ajout"
-        >
-          + Nouvelle tâche
-        </button>
+      <form id="form-ajout" class="form-ajout" novalidate>
+        <label for="nouvelle-tache">Nouvelle tâche</label>
 
-        <div id="formulaire-ajout" class="formulaire-ajout" hidden>
-          <label for="champ-nouvelle-tache">Nouvelle tâche</label>
-          <input type="text" id="champ-nouvelle-tache" autocomplete="off" />
-          <button id="btn-ajouter">Ajouter</button>
+        <div class="ligne-ajout">
+          <input
+            type="text"
+            id="nouvelle-tache"
+            name="tache"
+            autocomplete="off"
+            required
+            minlength="3"
+            aria-describedby="erreur-tache"
+          />
+          <button type="submit" class="btn-ajouter">Ajouter</button>
         </div>
-      </div>
+
+        <p id="erreur-tache" class="message-erreur" role="alert"></p>
+      </form>
 
       <ul class="liste-taches"></ul>
     </main>
