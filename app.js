@@ -1,4 +1,6 @@
-const taches = [
+const CLE_STOCKAGE = "liste-taches";
+
+const tachesDeDepart = [
   {
     id: 1,
     texte: "Faire les courses",
@@ -18,6 +20,24 @@ const taches = [
     date: Date.now() - 1000,
   },
 ];
+
+// Charger les tâches enregistrées
+function chargerTaches() {
+  const sauvegarde = localStorage.getItem(CLE_STOCKAGE);
+
+  if (sauvegarde !== null) {
+    return JSON.parse(sauvegarde);
+  }
+
+  return tachesDeDepart;
+}
+
+// Sauvegarder les tâches
+function sauvegarderTaches() {
+  localStorage.setItem(CLE_STOCKAGE, JSON.stringify(taches));
+}
+
+const taches = chargerTaches();
 
 const liste = document.querySelector(".liste-taches");
 const compteur = document.querySelector(".compteur");
@@ -56,12 +76,18 @@ function creerElementTache(tache) {
 }
 
 // Afficher toutes les tâches
+
 function afficherTaches() {
   liste.replaceChildren();
 
-  taches.forEach((tache) => {
-    liste.append(creerElementTache(tache));
-  });
+  if (taches.length === 0) {
+    const li = document.createElement("li");
+    li.classList.add("liste-vide");
+    li.textContent = "Aucune tâche à afficher.";
+    liste.append(li);
+  } else {
+    liste.append(...taches.map(creerElementTache));
+  }
 
   mettreAJourCompteur();
 }
@@ -72,6 +98,7 @@ function supprimerTache(id) {
 
   if (index !== -1) {
     taches.splice(index, 1);
+    sauvegarderTaches();
     afficherTaches();
   }
 }
@@ -81,6 +108,7 @@ function basculerTache(id) {
 
   if (tache) {
     tache.terminee = !tache.terminee;
+    sauvegarderTaches();
     afficherTaches();
   }
 }
@@ -113,6 +141,7 @@ function ajouterTache(texte) {
   };
 
   taches.push(nouvelleTache);
+  sauvegarderTaches();
   afficherTaches();
 }
 
