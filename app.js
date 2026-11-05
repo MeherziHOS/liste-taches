@@ -42,6 +42,14 @@ const taches = chargerTaches();
 const liste = document.querySelector(".liste-taches");
 const compteur = document.querySelector(".compteur");
 
+let filtreActuel = "toutes";
+
+const recherche = document.getElementById("recherche");
+const tri = document.getElementById("tri");
+const filtres = document.querySelector(".filtres");
+const statsTexte = document.getElementById("stats-texte");
+const barreRemplissage = document.querySelector(".barre-remplissage");
+
 // Créer l'élément HTML d'une tâche
 function creerElementTache(tache) {
   const li = document.createElement("li");
@@ -75,21 +83,67 @@ function creerElementTache(tache) {
   return li;
 }
 
-// Afficher toutes les tâches
+// Filtrer, rechercher et trier les tâches
+function tachesAAfficher() {
+  const texteRecherche = recherche.value.trim().toLowerCase();
 
+  return taches
+    .filter((tache) => {
+      if (filtreActuel === "en-cours") {
+        return !tache.terminee;
+      }
+
+      if (filtreActuel === "terminees") {
+        return tache.terminee;
+      }
+
+      return true;
+    })
+    .filter((tache) => tache.texte.toLowerCase().includes(texteRecherche))
+    .slice()
+    .sort((a, b) => {
+      if (tri.value === "nom") {
+        return a.texte.localeCompare(b.texte, "fr");
+      }
+
+      return a.date - b.date;
+    });
+}
+
+// Mettre à jour les statistiques
+function mettreAJourStatistiques() {
+  const total = taches.length;
+  const terminees = taches.filter((tache) => tache.terminee).length;
+
+  const pourcentage = total === 0 ? 0 : Math.round((terminees / total) * 100);
+
+  statsTexte.textContent = `${terminees} / ${total} terminée(s) - ${pourcentage} %`;
+
+  barreRemplissage.style.width = `${pourcentage}%`;
+}
+
+// Afficher les tâches selon les filtres
 function afficherTaches() {
   liste.replaceChildren();
 
-  if (taches.length === 0) {
+  const resultats = tachesAAfficher();
+
+  if (resultats.length === 0) {
     const li = document.createElement("li");
     li.classList.add("liste-vide");
-    li.textContent = "Aucune tâche à afficher.";
+
+    li.textContent =
+      taches.length === 0
+        ? "Aucune tâche à afficher."
+        : "Aucune tâche ne correspond à votre recherche.";
+
     liste.append(li);
   } else {
-    liste.append(...taches.map(creerElementTache));
+    liste.append(...resultats.map(creerElementTache));
   }
 
   mettreAJourCompteur();
+  mettreAJourStatistiques();
 }
 
 // Supprimer une tâche
@@ -214,3 +268,29 @@ liste.addEventListener("click", (event) => {
     basculerTache(id);
   }
 });
+
+// Gérer les boutons de filtrage
+filtres.addEventListener("click", (event) => {
+  const bouton = event.target.closest(".btn-filtre");
+
+  if (!bouton) {
+    return;
+  }
+
+  filtreActuel = bouton.dataset.filtre;
+
+  filtres.querySelectorAll(".btn-filtre").forEach((btn) => {
+    const actif = btn === bouton;
+
+    btn.classList.toggle("actif", actif);
+    btn.setAttribute("aria-pressed", String(actif));
+  });
+
+  afficherTaches();
+});
+
+// Recherche en temps réel
+recherche.addEventListener("input", afficherTaches);
+
+// Tri des tâches
+tri.addEventListener("change", afficherTaches);

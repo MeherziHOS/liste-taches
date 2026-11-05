@@ -32,7 +32,55 @@
         <p id="erreur-tache" class="message-erreur" role="alert"></p>
       </form>
 
+      <div class="outils">
+        <div class="filtres" role="group" aria-label="Afficher les tâches">
+          <button
+            class="btn-filtre actif"
+            data-filtre="toutes"
+            aria-pressed="true"
+          >
+            Toutes
+          </button>
+          <button
+            class="btn-filtre"
+            data-filtre="en-cours"
+            aria-pressed="false"
+          >
+            En cours
+          </button>
+          <button
+            class="btn-filtre"
+            data-filtre="terminees"
+            aria-pressed="false"
+          >
+            Terminées
+          </button>
+        </div>
+
+        <div class="recherche-tri">
+          <div class="champ-outil">
+            <label for="recherche">Rechercher</label>
+            <input type="search" id="recherche" autocomplete="off" />
+          </div>
+
+          <div class="champ-outil">
+            <label for="tri">Trier par</label>
+            <select id="tri">
+              <option value="date">Ordre d'ajout</option>
+              <option value="nom">Nom (A → Z)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
       <ul class="liste-taches"></ul>
+
+      <div class="stats">
+        <p id="stats-texte"></p>
+        <div class="barre-progression" aria-hidden="true">
+          <div class="barre-remplissage"></div>
+        </div>
+      </div>
     </main>
   </body>
 </html>

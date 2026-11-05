@@ -128,3 +128,67 @@ h1 {
   font-style: italic;
   list-style: none;
 }
+
+.outils {
+  margin: 20px 0;
+}
+
+.filtres {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
+}
+
+.btn-filtre {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: white;
+  cursor: pointer;
+}
+
+.btn-filtre.actif {
+  background: #2563eb;
+  color: white;
+  border-color: #2563eb;
+}
+
+.recherche-tri {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.champ-outil {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 150px;
+  gap: 5px;
+}
+
+.champ-outil input,
+.champ-outil select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.stats {
+  margin-top: 20px;
+}
+
+.barre-progression {
+  height: 12px;
+  background: #e5e7eb;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.barre-remplissage {
+  height: 100%;
+  width: 0;
+  background: #16a34a;
+  transition: width 0.3s ease;
+}
