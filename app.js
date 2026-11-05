@@ -41,11 +41,17 @@ function creerElementTache(tache) {
   bouton.textContent = "Supprimer";
   bouton.setAttribute("aria-label", `Supprimer : ${tache.texte}`);
 
-  bouton.addEventListener("click", () => {
-    supprimerTache(tache.id);
-  });
+  const btnTerminer = document.createElement("button");
+  btnTerminer.classList.add("btn-terminer");
 
-  li.append(texte, bouton);
+  btnTerminer.textContent = tache.terminee ? "Réactiver" : "Terminer";
+
+  btnTerminer.setAttribute(
+    "aria-label",
+    `${tache.terminee ? "Réactiver" : "Terminer"} : ${tache.texte}`,
+  );
+
+  li.append(texte, btnTerminer, bouton);
   return li;
 }
 
@@ -66,6 +72,15 @@ function supprimerTache(id) {
 
   if (index !== -1) {
     taches.splice(index, 1);
+    afficherTaches();
+  }
+}
+
+function basculerTache(id) {
+  const tache = taches.find((tache) => tache.id === id);
+
+  if (tache) {
+    tache.terminee = !tache.terminee;
     afficherTaches();
   }
 }
@@ -130,5 +145,29 @@ btnAjouter.addEventListener("click", ajouterTache);
 champNouvelleTache.addEventListener("keydown", (event) => {
   if (event.key === "Enter") {
     ajouterTache();
+  }
+});
+
+liste.addEventListener("click", (event) => {
+  const bouton = event.target.closest("button");
+
+  if (!bouton) {
+    return;
+  }
+
+  const li = bouton.closest(".tache");
+
+  if (!li) {
+    return;
+  }
+
+  const id = Number(li.dataset.id);
+
+  if (bouton.classList.contains("btn-supprimer")) {
+    supprimerTache(id);
+  }
+
+  if (bouton.classList.contains("btn-terminer")) {
+    basculerTache(id);
   }
 });

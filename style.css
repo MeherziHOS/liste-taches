@@ -99,3 +99,16 @@ h1 {
   flex: 1;
   min-width: 150px;
 }
+
+.btn-terminer {
+  padding: 8px 12px;
+  background-color: #16a34a;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-terminer:hover {
+  background-color: #15803d;
+}
